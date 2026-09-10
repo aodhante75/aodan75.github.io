@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Daniel Atencia Oliva — Data Engineer</title>
+<meta name="description" content="Portafolio de Daniel Atencia Oliva, Ingeniero de Datos especializado en arquitecturas Data Lake/Lakehouse en AWS.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #0D1117;
+    --surface: #121922;
+    --surface-2: #19222C;
+    --line: #26313D;
+    --text: #E6EDF3;
+    --muted: #8B98A5;
+    --accent: #E3B341;
+    --accent-soft: rgba(227,179,65,0.12);
+    --accent-dim: rgba(227,179,65,0.35);
+    --mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+    --sans: 'IBM Plex Sans', system-ui, -apple-system, sans-serif;
+    --maxw: 880px;
+  }
+
+  *{ box-sizing: border-box; }
+  html{ scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce){ html{ scroll-behavior: auto; } *{ animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; } }
+
+  body{
+    margin:0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    font-size: 16px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a{ color: var(--accent); text-decoration: none; }
+  a:hover{ text-decoration: underline; }
+  a:focus-visible, button:focus-visible{ outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 2px; }
+
+  h1,h2,h3{ font-family: var(--mono); font-weight: 600; margin: 0; letter-spacing: -0.01em; }
+  p{ margin: 0 0 1rem 0; max-width: 66ch; color: var(--text); }
+  ul{ margin:0; padding:0; }
+
+  .wrap{ max-width: var(--maxw); margin: 0 auto; padding: 0 24px; }
+
+  /* ---------- nav ---------- */
+  header.site-nav{
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(13,17,23,0.86);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--line);
+  }
+  .nav-inner{
+    max-width: var(--maxw); margin: 0 auto; padding: 14px 24px;
+    display:flex; align-items:center; justify-content:space-between;
+    gap: 16px;
+  }
+  .nav-name{ font-family: var(--mono); font-size: 0.95rem; color: var(--text); }
+  .nav-name span{ color: var(--accent); }
+  nav.links{ display:flex; gap: 20px; flex-wrap: wrap; }
+  nav.links a{
+    font-family: var(--mono); font-size: 0.85rem; color: var(--muted);
+    padding: 4px 2px; border-bottom: 2px solid transparent;
+  }
+  nav.links a:hover{ color: var(--text); text-decoration:none; }
+  nav.links a.active{ color: var(--text); border-bottom-color: var(--accent); }
+
+  /* ---------- hero ---------- */
+  .hero{ padding: 72px 0 48px; }
+  .config-card{
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 28px 30px;
+    font-family: var(--mono);
+    font-size: 0.92rem;
+    overflow-x: auto;
+  }
+  .config-card .path{ color: var(--muted); margin-bottom: 14px; font-size: 0.8rem; }
+  .cfg-row{ display:flex; gap: 10px; padding: 3px 0; opacity:0; animation: cfgIn 0.45s ease forwards; }
+  .cfg-row:nth-child(2){ animation-delay: 0.06s; }
+  .cfg-row:nth-child(3){ animation-delay: 0.12s; }
+  .cfg-row:nth-child(4){ animation-delay: 0.18s; }
+  .cfg-row:nth-child(5){ animation-delay: 0.24s; }
+  .cfg-row:nth-child(6){ animation-delay: 0.30s; }
+  @keyframes cfgIn{ from{ opacity:0; transform: translateY(4px);} to{ opacity:1; transform: translateY(0);} }
+  @media (prefers-reduced-motion: reduce){ .cfg-row{ opacity:1; animation:none; } }
+  .cfg-key{ color: var(--muted); white-space: nowrap; }
+  .cfg-val{ color: var(--text); }
+  .cfg-val.accent{ color: var(--accent); }
+
+  .hero h1{ font-size: clamp(1.9rem, 4vw, 2.5rem); margin-top: 26px; line-height:1.3; max-width: 30ch; }
+  .hero .role-line{ font-family: var(--mono); color: var(--accent); font-size: 1rem; margin-top: 10px; display:block; }
+  .hero .lede{ margin-top: 18px; max-width: 62ch; color: var(--muted); font-size: 1.05rem; }
+  .hero-links{ margin-top: 20px; display:flex; gap: 14px; flex-wrap: wrap; }
+  .hero-links a{ font-family: var(--mono); font-size: 0.85rem; border: 1px solid var(--line); padding: 8px 14px; border-radius: 6px; color: var(--text); }
+  .hero-links a:hover{ border-color: var(--accent-dim); text-decoration:none; background: var(--accent-soft); }
+
+  /* ---------- sections ---------- */
+  section{ padding: 56px 0; border-top: 1px solid var(--line); }
+  section .section-head{ margin-bottom: 30px; }
+  section .section-head h2{ font-size: 1.5rem; }
+  section .section-head .sub{ color: var(--muted); font-family: var(--sans); font-size: 0.98rem; margin-top: 8px; }
+
+  /* about */
+  .about-body p{ color: var(--muted); }
+  .about-body p:first-child{ color: var(--text); font-size: 1.08rem; }
+
+  /* experience pipeline */
+  .pipeline{ position: relative; padding-left: 26px; }
+  .pipeline::before{
+    content:""; position:absolute; left: 5px; top: 6px; bottom: 6px; width: 2px;
+    background: var(--line);
+  }
+  .job{ position: relative; margin-bottom: 44px; }
+  .job:last-child{ margin-bottom: 0; }
+  .job::before{
+    content:""; position: absolute; left: -26px; top: 4px;
+    width: 12px; height: 12px; border-radius: 50%;
+    background: var(--bg); border: 2px solid var(--accent);
+  }
+  .job-meta{ display:flex; flex-wrap: wrap; gap: 8px 14px; align-items: baseline; margin-bottom: 6px; }
+  .job-meta .dates{ font-family: var(--mono); font-size: 0.8rem; color: var(--accent); }
+  .job h3{ font-size: 1.08rem; }
+  .job .org{ color: var(--muted); font-family: var(--sans); font-size: 0.95rem; margin-bottom: 10px; }
+  .job ul{ list-style: none; margin-top: 12px; }
+  .job li{ position: relative; padding-left: 20px; margin-bottom: 8px; color: var(--muted); font-size: 0.96rem; }
+  .job li::before{ content: "›"; position:absolute; left: 0; color: var(--accent); font-family: var(--mono); }
+  .job li strong{ color: var(--text); font-weight: 600; }
+  .job .parallel-tag{ font-family: var(--mono); font-size: 0.72rem; color: var(--muted); border: 1px solid var(--line); border-radius: 4px; padding: 2px 8px; }
+
+  /* stack / architecture */
+  .stack-flow{ display:flex; flex-direction: column; gap: 0; }
+  .layer{
+    border: 1px solid var(--line); border-radius: 8px;
+    background: var(--surface);
+    padding: 18px 20px;
+    margin-bottom: 0;
+  }
+  .layer + .layer{ margin-top: 10px; }
+  .layer-connector{ display:flex; justify-content:center; padding: 4px 0; color: var(--line); }
+  .layer-connector svg{ display:block; }
+  .layer-head{ display:flex; justify-content: space-between; align-items: baseline; gap: 10px; margin-bottom: 12px; }
+  .layer-head h3{ font-size: 0.95rem; color: var(--text); }
+  .layer-head .layer-note{ font-family: var(--sans); font-size: 0.82rem; color: var(--muted); text-align: right; }
+  .tags{ display:flex; flex-wrap: wrap; gap: 8px; }
+  .tag{ font-family: var(--mono); font-size: 0.78rem; color: var(--text); background: var(--surface-2); border: 1px solid var(--line); border-radius: 5px; padding: 4px 10px; }
+  .tag.strong{ border-color: var(--accent-dim); color: var(--accent); background: var(--accent-soft); }
+
+  /* education / certs */
+  .two-col{ display:grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+  .card-simple h3{ font-size: 0.95rem; margin-bottom: 10px; color: var(--muted); font-weight:500; }
+  .card-simple .item{ margin-bottom: 14px; }
+  .card-simple .item .t{ color: var(--text); font-weight: 600; font-family: var(--sans); font-size: 0.98rem; }
+  .card-simple .item .d{ color: var(--muted); font-size: 0.88rem; font-family: var(--mono); margin-top: 2px; }
+
+  /* references */
+  .refs{ display:grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+  .ref-card{ border: 1px solid var(--line); border-radius: 8px; padding: 18px; background: var(--surface); }
+  .ref-card .name{ font-weight: 600; font-size: 1rem; }
+  .ref-card .role{ color: var(--muted); font-size: 0.88rem; margin: 4px 0 10px; }
+  .ref-card a{ font-family: var(--mono); font-size: 0.8rem; }
+  .refs-note{ margin-top: 14px; color: var(--muted); font-size: 0.85rem; }
+
+  /* contact */
+  .contact-grid{ display:flex; flex-wrap: wrap; gap: 14px; margin-top: 8px; }
+  .contact-item{ border: 1px solid var(--line); border-radius: 6px; padding: 12px 16px; min-width: 220px; }
+  .contact-item .k{ font-family: var(--mono); font-size: 0.72rem; color: var(--muted); margin-bottom: 4px; }
+  .contact-item .v{ font-family: var(--mono); font-size: 0.92rem; }
+
+  footer{ padding: 30px 0 50px; color: var(--muted); font-size: 0.82rem; font-family: var(--mono); border-top: 1px solid var(--line); }
+
+  @media (max-width: 720px){
+    .two-col{ grid-template-columns: 1fr; gap: 22px; }
+    .refs{ grid-template-columns: 1fr; }
+    nav.links{ gap: 12px 16px; }
+  }
+  @media (max-width: 480px){
+    .hero{ padding: 48px 0 32px; }
+    .config-card{ padding: 20px 18px; font-size: 0.82rem; }
+    section{ padding: 40px 0; }
+  }
+</style>
+</head>
+<body>
+
+<header class="site-nav">
+  <div class="nav-inner">
+    <div class="nav-name">daniel<span>.</span>atencia</div>
+    <nav class="links" id="navLinks">
+      <a href="#perfil" data-nav>Perfil</a>
+      <a href="#experiencia" data-nav>Experiencia</a>
+      <a href="#stack" data-nav>Stack</a>
+      <a href="#formacion" data-nav>Formación</a>
+      <a href="#referencias" data-nav>Referencias</a>
+      <a href="#contacto" data-nav>Contacto</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <section class="hero" id="perfil">
+    <div class="config-card" aria-label="Resumen en formato de configuración">
+      <div class="path"># perfil.yaml</div>
+      <div class="cfg-row"><span class="cfg-key">nombre:</span><span class="cfg-val">Daniel Atencia Oliva</span></div>
+      <div class="cfg-row"><span class="cfg-key">rol:</span><span class="cfg-val accent">Data Engineer</span></div>
+      <div class="cfg-row"><span class="cfg-key">ubicacion:</span><span class="cfg-val">Medellín, Colombia</span></div>
+      <div class="cfg-row"><span class="cfg-key">stack_principal:</span><span class="cfg-val">AWS · dbt · Redshift · Airflow · Python</span></div>
+      <div class="cfg-row"><span class="cfg-key">enfoque:</span><span class="cfg-val">Data Lake / Lakehouse, ETL/ELT, conciliación financiera</span></div>
+      <div class="cfg-row"><span class="cfg-key">experiencia:</span><span class="cfg-val">desde 2020</span></div>
+    </div>
+
+    <h1>Construyo el camino completo del dato: desde el archivo crudo hasta el panel que decide algo.</h1>
+    <span class="role-line">Ingeniero de Datos — Arquitecturas Data Lake/Lakehouse en AWS</span>
+    <p class="lede">Diseño y orquesto pipelines ETL/ELT sobre S3, dbt, Redshift y Aurora RDS, y me especializo en procesos de conciliación financiera y modelos de análisis de cohorte, dejando cada capa gobernada y lista para Tableau, Power BI, QuickSight o Luzmo.</p>
+    <div class="hero-links">
+      <a href="mailto:aodan75@gmail.com">aodan75@gmail.com</a>
+      <a href="https://www.linkedin.com/in/aodan75/" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="#experiencia">Ver experiencia</a>
+    </div>
+  </section>
+
+  <section id="sobre-mi">
+    <div class="section-head">
+      <h2>Sobre mí</h2>
+    </div>
+    <div class="about-body">
+      <p>Me defino como un profesional resiliente, con alta capacidad de aprendizaje y adaptación a entornos nuevos. Cada proyecto empieza igual: entender el contexto real del negocio antes de tocar una sola tabla.</p>
+      <p>Trabajo de forma profundamente colaborativa. Priorizo la comunicación abierta con los equipos de negocio y de datos, porque una arquitectura solo es buena si el resto del equipo puede confiar en ella y operarla sin depender de mí.</p>
+      <p>Asumo cada reto con autonomía y un compromiso firme con la excelencia técnica, ya sea migrando un data lake completo, auditando una conciliación financiera o dejando un catálogo de datos gobernado y documentado.</p>
+    </div>
+  </section>
+
+  <section id="experiencia">
+    <div class="section-head">
+      <h2>Experiencia</h2>
+      <div class="sub">Cuatro etapas, un mismo patrón: ingesta, transformación y datos listos para decidir.</div>
+    </div>
+
+    <div class="pipeline">
+
+      <div class="job">
+        <div class="job-meta">
+          <div class="dates">Dic 2022 — presente</div>
+        </div>
+        <h3>Analytics Engineer / Data Engineer</h3>
+        <div class="org">Rankmi</div>
+        <p>Diseño y optimización de infraestructura de datos de extremo a extremo para plataformas de RRHH, con modelado de datos y pipelines multipaís.</p>
+        <ul>
+          <li>Diseñé y orquesté flujos de integración con <strong>dbt, Airflow, AWS Glue, Airbyte, Pentaho y Step Functions</strong>, gestionando migraciones con AWS DMS y monitoreo en CloudWatch.</li>
+          <li>Optimicé bases de datos analíticas en <strong>PostgreSQL y AWS Redshift</strong>, sosteniendo dashboards ejecutivos en Tableau, QuickSight y Luzmo.</li>
+          <li><strong>Logro clave (end-to-end):</strong> diseñé e implementé toda la arquitectura —migración, ingesta, transformación y puesta en marcha del dashboard— para un modelo de rotación de personal (turnover) con análisis de cohorte para nóminas multipaís.</li>
+          <li>Lidero la implementación del <strong>Model Context Protocol (MCP)</strong> sobre el data lake en Redshift, estructurando el catálogo y la gobernanza de datos con dbt.</li>
+        </ul>
+      </div>
+
+      <div class="job">
+        <div class="job-meta">
+          <div class="dates">Mar 2022 — Dic 2022</div>
+        </div>
+        <h3>Consultor de Ingeniería y Análisis de Datos</h3>
+        <div class="org">Amaris Consulting</div>
+        <p>Soluciones de inteligencia de negocios y flujos de integración de datos para clientes del sector salud.</p>
+        <ul>
+          <li>Diseñé y construí flujos de integración y transformación en <strong>Alteryx</strong>, integrados directamente sobre motores de bases de datos <strong>Oracle</strong>.</li>
+          <li>Creé dashboards ejecutivos y modelos de KPI con <strong>Tableau y Power BI</strong>.</li>
+          <li><strong>Logro clave:</strong> diseñé e implementé un cubo de métricas financieras y operativas para consolidar costos y facturación de áreas médicas críticas (oncología, quemados, materno-infantil), optimizando el análisis de rentabilidad hospitalaria.</li>
+        </ul>
+      </div>
+
+      <div class="job">
+        <div class="job-meta">
+          <div class="dates">Dic 2020 — Mar 2022</div>
+        </div>
+        <h3>Analista de Datos / Líder de Conciliación</h3>
+        <div class="org">Paynet</div>
+        <p>Integración de datos financieros y optimización de procesos de conciliación para el grupo empresarial.</p>
+        <ul>
+          <li>Desarrollé e integré procesos ETL con <strong>Pentaho Data Integration</strong> para unificar múltiples fuentes transaccionales sobre <strong>SQL Server</strong>, con consultas T-SQL complejas.</li>
+          <li><strong>Logro clave (automatización FinTech):</strong> lideré y automaticé la conciliación transaccional de recaudo con Pentaho PDI, coordinando con stakeholders del grupo empresarial para eliminar procesos manuales y asegurar la integridad de los datos.</li>
+        </ul>
+      </div>
+
+      <div class="job">
+        <div class="job-meta">
+          <div class="dates">Jul 2022 — presente</div>
+          <span class="parallel-tag">en paralelo</span>
+        </div>
+        <h3>Consultor e Ingeniero de Datos — Freelance</h3>
+        <div class="org">Proyectos independientes · Retail, redes bancarias y FinTech</div>
+        <ul>
+          <li>Modelé y optimicé datos con <strong>SQL Server, Oracle, dbt</strong> y servicios AWS (RDS, CloudFormation); construí pipelines ETL/ELT con Pentaho PDI y Alteryx.</li>
+          <li>Creé dashboards e indicadores de negocio en <strong>Tableau, Power BI, AWS QuickSight y Metabase</strong>.</li>
+          <li><strong>Logro clave (IaC + FinTech):</strong> implementé la arquitectura de datos end-to-end para modelos de transacciones financieras, desplegando la capa de visualización en AWS QuickSight mediante CloudFormation.</li>
+          <li><strong>Logro clave (auditoría):</strong> diseñé el sistema de auditoría y control para la conciliación de tarjetas de crédito en Pentaho PDI, con métricas multietapa para evaluar eficiencia y rangos admisibles.</li>
+        </ul>
+      </div>
+
+    </div>
+  </section>
+
+  <section id="stack">
+    <div class="section-head">
+      <h2>Stack, en capas</h2>
+      <div class="sub">Así fluye el dato en los proyectos en los que trabajo: de la fuente al panel, con gobierno en cada capa.</div>
+    </div>
+
+    <div class="stack-flow">
+
+      <div class="layer">
+        <div class="layer-head">
+          <h3>Almacenamiento y cloud</h3>
+          <div class="layer-note">bases de datos y AWS</div>
+        </div>
+        <div class="tags">
+          <span class="tag strong">AWS · S3</span>
+          <span class="tag strong">AWS · Redshift</span>
+          <span class="tag">Aurora RDS</span>
+          <span class="tag">Amazon RDS</span>
+          <span class="tag">AWS Glue / Athena</span>
+          <span class="tag">CloudFormation</span>
+          <span class="tag">SQL Server · T-SQL</span>
+          <span class="tag">Oracle SQL</span>
+          <span class="tag">PostgreSQL</span>
+        </div>
+      </div>
+
+      <div class="layer-connector" aria-hidden="true">
+        <svg width="18" height="20" viewBox="0 0 18 20"><path d="M9 0v14M2 11l7 7 7-7" stroke="currentColor" stroke-width="1.5" fill="none"/></svg>
+      </div>
+
+      <div class="layer">
+        <div class="layer-head">
+          <h3>Ingesta, orquestación y transformación</h3>
+          <div class="layer-note">ETL / ELT</div>
+        </div>
+        <div class="tags">
+          <span class="tag strong">dbt</span>
+          <span class="tag strong">Apache Airflow</span>
+          <span class="tag">Airbyte</span>
+          <span class="tag">Pentaho PDI</span>
+          <span class="tag">Alteryx</span>
+          <span class="tag">Talend</span>
+          <span class="tag">AWS Step Functions</span>
+          <span class="tag">Apache Spark / PySpark</span>
+        </div>
+      </div>
+
+      <div class="layer-connector" aria-hidden="true">
+        <svg width="18" height="20" viewBox="0 0 18 20"><path d="M9 0v14M2 11l7 7 7-7" stroke="currentColor" stroke-width="1.5" fill="none"/></svg>
+      </div>
+
+      <div class="layer">
+        <div class="layer-head">
+          <h3>Procesamiento y lenguajes</h3>
+          <div class="layer-note">código</div>
+        </div>
+        <div class="tags">
+          <span class="tag strong">Python</span>
+          <span class="tag">Java</span>
+        </div>
+      </div>
+
+      <div class="layer-connector" aria-hidden="true">
+        <svg width="18" height="20" viewBox="0 0 18 20"><path d="M9 0v14M2 11l7 7 7-7" stroke="currentColor" stroke-width="1.5" fill="none"/></svg>
+      </div>
+
+      <div class="layer">
+        <div class="layer-head">
+          <h3>Consumo y visualización</h3>
+          <div class="layer-note">BI</div>
+        </div>
+        <div class="tags">
+          <span class="tag strong">Tableau</span>
+          <span class="tag strong">Power BI</span>
+          <span class="tag">AWS QuickSight</span>
+          <span class="tag">Luzmo</span>
+          <span class="tag">Metabase</span>
+        </div>
+      </div>
+
+      <div class="layer-connector" aria-hidden="true">
+        <svg width="18" height="20" viewBox="0 0 18 20"><path d="M9 0v14M2 11l7 7 7-7" stroke="currentColor" stroke-width="1.5" fill="none"/></svg>
+      </div>
+
+      <div class="layer">
+        <div class="layer-head">
+          <h3>Gobernanza y conceptos</h3>
+          <div class="layer-note">calidad y catálogo</div>
+        </div>
+        <div class="tags">
+          <span class="tag strong">Model Context Protocol (MCP)</span>
+          <span class="tag">Análisis de cohorte</span>
+          <span class="tag">Infraestructura como código (IaC)</span>
+          <span class="tag">Modelado dimensional</span>
+          <span class="tag">Conciliaciones financieras</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section id="formacion">
+    <div class="section-head">
+      <h2>Formación</h2>
+    </div>
+    <div class="two-col">
+      <div class="card-simple">
+        <h3>Educación</h3>
+        <div class="item">
+          <div class="t">Ingeniería Industrial</div>
+          <div class="d">Universidad de Córdoba — 2019</div>
+        </div>
+        <h3 style="margin-top:24px;">Idiomas</h3>
+        <div class="item">
+          <div class="t">Español</div>
+          <div class="d">Nativo</div>
+        </div>
+        <div class="item">
+          <div class="t">Inglés</div>
+          <div class="d">A2, en progresión</div>
+        </div>
+      </div>
+      <div class="card-simple">
+        <h3>Certificaciones y cursos</h3>
+        <div class="item">
+          <div class="t">Ingeniería de Datos con AWS</div>
+          <div class="d">Smart Data — 2024</div>
+        </div>
+        <div class="item">
+          <div class="t">DAG Authoring for Apache Airflow 3</div>
+          <div class="d">Astronomer Certification — 2026</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="referencias">
+    <div class="section-head">
+      <h2>Referencias</h2>
+    </div>
+    <div class="refs">
+      <div class="ref-card">
+        <div class="name">Alba Yanez</div>
+        <div class="role">Head of Data — Banco BCP</div>
+        <a href="https://www.linkedin.com/in/albayanes/" target="_blank" rel="noopener">LinkedIn ↗</a>
+      </div>
+      <div class="ref-card">
+        <div class="name">Manuela Iglesias</div>
+        <div class="role">Head of Data & IA — Rankmi</div>
+        <a href="https://www.linkedin.com/in/manuelaiglesiassegure/" target="_blank" rel="noopener">LinkedIn ↗</a>
+      </div>
+      <div class="ref-card">
+        <div class="name">Tomás Venegas</div>
+        <div class="role">Data Engineering Manager — Mercado Libre</div>
+        <a href="https://www.linkedin.com/in/tomvenegas/" target="_blank" rel="noopener">LinkedIn ↗</a>
+      </div>
+    </div>
+    <p class="refs-note">Estas referencias son visibles públicamente en esta página. Si prefieres compartirlas solo bajo solicitud directa, puedo quitarlas del sitio y dejarlas para enviar en PDF o correo.</p>
+  </section>
+
+  <section id="contacto">
+    <div class="section-head">
+      <h2>Contacto</h2>
+      <div class="sub">Medellín, Colombia — abierto a conversar sobre arquitectura de datos, ETL/ELT o conciliación financiera.</div>
+    </div>
+    <div class="contact-grid">
+      <div class="contact-item">
+        <div class="k">email</div>
+        <div class="v"><a href="mailto:aodan75@gmail.com">aodan75@gmail.com</a></div>
+      </div>
+      <div class="contact-item">
+        <div class="k">teléfono</div>
+        <div class="v"><a href="tel:+573207326070">+57 320 732 6070</a></div>
+      </div>
+      <div class="contact-item">
+        <div class="k">linkedin</div>
+        <div class="v"><a href="https://www.linkedin.com/in/aodan75/" target="_blank" rel="noopener">/in/aodan75</a></div>
+      </div>
+      <div class="contact-item">
+        <div class="k">ubicación</div>
+        <div class="v">Medellín, CO</div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="wrap">
+  <div>© <span id="year"></span> Daniel Atencia Oliva — construido para GitHub Pages.</div>
+</footer>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // scroll-spy for nav
+  const links = document.querySelectorAll('#navLinks a[data-nav]');
+  const sections = Array.from(links).map(a => document.querySelector(a.getAttribute('href')));
+
+  const setActive = (id) => {
+    links.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + id));
+  };
+
+  if ('IntersectionObserver' in window) {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) setActive(entry.target.id);
+      });
+    }, { rootMargin: '-45% 0px -50% 0px', threshold: 0 });
+    sections.forEach(s => s && observer.observe(s));
+  }
+</script>
+
+</body>
+</html>
